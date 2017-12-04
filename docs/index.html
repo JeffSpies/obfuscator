@@ -4,10 +4,21 @@
   
   <p>To use, first enter your email here and click "Generate":</p>
   
+  <form>
   <p>
-    <input id="inputEmail" value="name@example.com"></input><button onclick="generate();">Generate</button>
+    <input id="inputEmail" value="name@example.com"></input>
+  </p>
+
+  <p>
+    <input id="atString" value="AAATTT"></input>
   </p>
   
+  <p>
+    <input id="dotString" value="DDDOOOTTT></input>
+  </p>
+  <button onclick="generate();">Generate</button>
+  </form>
+
   <div id="instructions" style="display:none;">
     <p>Embed the following where you want the obfuscated email address to appear:</p>
   
@@ -15,8 +26,19 @@
   
     <p>and the following at the end of your document before the closing body tag:</p>
   
-    <pre>
-&lt;script&gt;
+    <pre id="scriptInstructions"></pre>
+  </div>
+  
+  <script>
+    var htmlEncode = function(value) {
+      var div = document.createElement('div');
+      var text = document.createTextNode(value);
+      div.appendChild(text);
+      return div.innerHTML;
+    };
+    
+    var instructions = `
+<script>
 (function(){
     var emails = document.getElementsByClassName("email");
     for(var i = 0; i < emails.length; i++) {
@@ -31,23 +53,15 @@
     }
   });
 })();
-&lt;/script&gt;
-    </pre>
-  </div>
-  
-  <script>
-    var htmlEncode = function(value) {
-      var div = document.createElement('div');
-      var text = document.createTextNode(value);
-      div.appendChild(text);
-      return div.innerHTML;
-    };
-    
+</script>
+`;                                                                                                                       
+                        
     var generate = function(){
       var inputEmail = document.getElementById('inputEmail').value;
       var reversed = inputEmail.replace('@', 'AAATTT').replace(/\./g, 'DDDOOOTTT').split("").reverse().join("");
       var rot13 = reversed.replace(/[a-zA-Z]/g,function(a){return String.fromCharCode(((a=a.charCodeAt())<91?78:110)>a?a+13:a-13)});
       document.getElementById('obfuscated').innerHTML = htmlEncode('<span class="email">'+rot13+'</span>');
+      document.getElementById('scriptInstructions').innerHTML = htmlEncode(instructions);
       document.getElementById('instructions').style.display = "block";
     };
     
