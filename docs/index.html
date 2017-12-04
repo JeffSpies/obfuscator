@@ -2,27 +2,30 @@
 <body>
   Email: <input id="inputEmail" value="name@example.com"></input><button onclick="generate();">Generate</button><br />
   Example: <span class="email" id="example"></span><br />
-  Copy and paste: <input id="obfuscated"></input><br />
+  Copy and paste: <pre id="obfuscated"></pre><br />
   and
-  <textarea>
-  $(window).load(function () {
-    var email$ = $(".email");
-    email$.css("unicode-bidi", "bidi-override");
-    email$.css("direction", "rtl");
-    var email = email$.html().replace(/[a-zA-Z]/g, function (a) {
+  <pre>
+$(window).load(function () {
+  var emails = document.getElementsByClassName("email");
+  for(var i = 0; i < emails.length; i++) {
+    email = emails[i];
+    email.style["unicode-bidi"] = "bidi-override";
+    email.style.direction = "rtl";
+    var rot13rot13 = email.innerHTML.replace(/[a-zA-Z]/g, function (a) {
       return String.fromCharCode(((a = a.charCodeAt()) < 91 ? 78 : 110) > a ? a + 13 : a - 13);
     });
-    email = email.split("").reverse().join("").replace('AAATTT', '@').replace(/DDDOOOTTT/g, '.').split("").reverse().join("");
-    email$.html(email);
-  });
-  </textarea>
+    rot13rot13 = rot13rot13.split("").reverse().join("").replace('AAATTT', '@').replace(/DDDOOOTTT/g, '.').split("").reverse().join("");
+    email.innerHTML = rot13rot13;
+  }
+});
+  </pre>
   <script>
     var generate = function(){
       var inputEmail = document.getElementById('inputEmail').value;
       var reversed = inputEmail.replace('@', 'AAATTT').replace(/\./g, 'DDDOOOTTT').split("").reverse().join("");
       var rot13 = reversed.replace(/[a-zA-Z]/g,function(a){return String.fromCharCode(((a=a.charCodeAt())<91?78:110)>a?a+13:a-13)});
       document.getElementById('example').innerHTML = rot13;
-      document.getElementById('obfuscated').value = rot13;
+      document.getElementById('obfuscated').innerHTML = '<span class="email">'+rot13+'</span>';
       
       var emails = document.getElementsByClassName("email");
       for(var i = 0; i < emails.length; i++) {
