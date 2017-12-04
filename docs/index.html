@@ -1,0 +1,18 @@
+<html>
+<body>
+Email: <input id="example"></input>
+<br />
+Copy and paste:<br />
+<textarea>
+$(window).load(function () {
+  var email$ = $(".email");
+  email$.css("unicode-bidi", "bidi-override");
+  email$.css("direction", "rtl");
+  var email = email$.html().replace(/[a-zA-Z]/g, function (a) {
+    return String.fromCharCode(((a = a.charCodeAt()) < 91 ? 78 : 110) > a ? a + 13 : a - 13)
+  });
+  email = email.split("").reverse().join("").replace('AAATTT', '@').replace(/DDDOOOTTT/g, '.').split("").reverse().join("");
+  email$.html(email);
+</textarea>
+</body>
+</html>
