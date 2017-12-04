@@ -37,7 +37,8 @@
       return div.innerHTML;
     };
     
-    var instructions = '<script>\n' + 
+    var instructions = function(at, dot, showAt, showDot) {
+        return '<script>\n' + 
 '(function(){\n' +
 '    var emails = document.getElementsByClassName("email");\n'+
 '    for(var i = 0; i < emails.length; i++) {\n'+
@@ -47,19 +48,22 @@
 '      var rot13rot13 = email.innerHTML.replace(/[a-zA-Z]/g, function (a) {\n'+
 '        return String.fromCharCode(((a = a.charCodeAt()) < 91 ? 78 : 110) > a ? a + 13 : a - 13);\n'+
 '      });\n'+
-'      rot13rot13 = rot13rot13.split("").reverse().join("").replace("AAATTT", '@').replace(/DDDOOOTTT/g, ".").split("").reverse().join("");\n' +
+'      rot13rot13 = rot13rot13.split("").reverse().join("").replace("'+at+'", "'+showAt+'").replace(/'+dot+'/g, "'+showDot+'").split("").reverse().join("");\n' +
 '      email.innerHTML = rot13rot13;\n' +
 '    }\n' +
 '  });\n' +
 '})();\n' +
-'</script>';                                                                                                                       
+'</script>';
+    }
                         
     var generate = function(){
       var inputEmail = document.getElementById('inputEmail').value;
+      var atString = document.getElementById('atString').value;
+      var dotString = document.getElementById('dotString').value;
       var reversed = inputEmail.replace('@', 'AAATTT').replace(/\./g, 'DDDOOOTTT').split("").reverse().join("");
       var rot13 = reversed.replace(/[a-zA-Z]/g,function(a){return String.fromCharCode(((a=a.charCodeAt())<91?78:110)>a?a+13:a-13)});
       document.getElementById('obfuscated').innerHTML = htmlEncode('<span class="email">'+rot13+'</span>');
-      document.getElementById('scriptInstructions').innerHTML = htmlEncode(instructions);
+      document.getElementById('scriptInstructions').innerHTML = htmlEncode(instructions(atString, dotString, '@', '.'));
       document.getElementById('instructions').style.display = "block";
     };
     
