@@ -1,14 +1,21 @@
 <html>
 <body>
-  Email: <input id="inputEmail" value="name@example.com"></input><button onclick="generate();">Generate</button><br />
   Example: <span class="email">zbpGGGBBBQQQrycznkrGGGNNNrzna</span> <br />
-  <p>Embed the following where you want the obfuscated email address to appear:</p>
   
-  <pre id="obfuscated"></pre>
+  <p>To use, first enter your email here and click "Generate":</p>
   
-  <p>and the following at the end of your document before the closing body tag:</p>
+  <p>
+    <input id="inputEmail" value="name@example.com"></input><button onclick="generate();">Generate</button>
+  </p>
   
-  <pre>
+  <div id="instructions" style="display:none;">
+    <p>Embed the following where you want the obfuscated email address to appear:</p>
+  
+    <pre id="obfuscated"></pre>
+  
+    <p>and the following at the end of your document before the closing body tag:</p>
+  
+    <pre>
 &lt;script&gt;
 (function(){
     var emails = document.getElementsByClassName("email");
@@ -25,7 +32,8 @@
   });
 })();
 &lt;/script&gt;
-  </pre>
+    </pre>
+  </div>
   <script>
     var htmlEncode = function(value) {
       var div = document.createElement('div');
@@ -39,6 +47,7 @@
       var reversed = inputEmail.replace('@', 'AAATTT').replace(/\./g, 'DDDOOOTTT').split("").reverse().join("");
       var rot13 = reversed.replace(/[a-zA-Z]/g,function(a){return String.fromCharCode(((a=a.charCodeAt())<91?78:110)>a?a+13:a-13)});
       document.getElementById('obfuscated').innerHTML = htmlEncode('<span class="email">'+rot13+'</span>');
+      document.getElementById('instructions').display = "block";
     };
     
     (function(){
