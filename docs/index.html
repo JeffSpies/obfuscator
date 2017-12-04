@@ -24,17 +24,17 @@
       document.getElementById('example').innerHTML = rot13;
       document.getElementById('obfuscated').value = rot13;
       
-//       var emails = document.getElementsByClassName("email");
-//       for(var i = 0; i < emails.length; i++) {
-//         email = emails[i];
-//         email.style["unicode-bidi"] = "bidi-override";
-//         email.style.direction = "rtl";
-//         var rot13rot13 = email.innerHTML.replace(/[a-zA-Z]/g, function (a) {
-//           return String.fromCharCode(((a = a.charCodeAt()) < 91 ? 78 : 110) > a ? a + 13 : a - 13);
-//         });
-//         rot13rot13 = rot13rot13.split("").reverse().join("").replace('AAATTT', '@').replace(/DDDOOOTTT/g, '.').split("").reverse().join("");
-//         email.innerHTML = rot13rot13;
-//       }
+      var emails = document.getElementsByClassName("email");
+      for(var i = 0; i < emails.length; i++) {
+        email = emails[i];
+        email.style["unicode-bidi"] = "bidi-override";
+        email.style.direction = "rtl";
+        var rot13rot13 = email.innerHTML.replace(/[a-zA-Z]/g, function (a) {
+          return String.fromCharCode(((a = a.charCodeAt()) < 91 ? 78 : 110) > a ? a + 13 : a - 13);
+        });
+        rot13rot13 = rot13rot13.split("").reverse().join("").replace('AAATTT', '@').replace(/DDDOOOTTT/g, '.').split("").reverse().join("");
+        email.innerHTML = rot13rot13;
+      }
     }
   </script>
 </body>
