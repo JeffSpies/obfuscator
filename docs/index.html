@@ -1,6 +1,6 @@
 <html>
 <body>
-  Email: <input id="example"></input><br /><button onclick="generate();">Generate</button><br />
+  Email: <input id="inputEmail"></input><br /><button onclick="generate();">Generate</button><br />
   Example: <span class="email" id="example"><span><br />
   Copy and paste: <input id="obfuscated"></input><br />
   and
@@ -18,7 +18,7 @@
   </textarea>
   <script>
     var generate = function(){
-      var inputEmail = document.getElementById('example').value;
+      var inputEmail = document.getElementById('inputEmail').value;
       var reversed = inputEmail.replace('@', 'AAATTT').replace(/\./g, 'DDDOOOTTT').split("").reverse().join("");
       var rot13 = reversed.replace(/[a-zA-Z]/g,function(a){return String.fromCharCode(((a=a.charCodeAt())<91?78:110)>a?a+13:a-13)});
       document.getElementById('example').innerHTML = rot13;
