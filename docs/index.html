@@ -34,6 +34,7 @@
 &lt;/script&gt;
     </pre>
   </div>
+  
   <script>
     var htmlEncode = function(value) {
       var div = document.createElement('div');
@@ -47,7 +48,7 @@
       var reversed = inputEmail.replace('@', 'AAATTT').replace(/\./g, 'DDDOOOTTT').split("").reverse().join("");
       var rot13 = reversed.replace(/[a-zA-Z]/g,function(a){return String.fromCharCode(((a=a.charCodeAt())<91?78:110)>a?a+13:a-13)});
       document.getElementById('obfuscated').innerHTML = htmlEncode('<span class="email">'+rot13+'</span>');
-      document.getElementById('instructions').display = "block";
+      document.getElementById('instructions').style.display = "block";
     };
     
     (function(){
