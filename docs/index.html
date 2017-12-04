@@ -1,7 +1,7 @@
 <html>
 <body>
   Email: <input id="inputEmail" value="name@example.com"></input><button onclick="generate();">Generate</button><br />
-  Example: <span class="email" id="example"></span><br />
+  Example: <span class="email">zbpGGGBBBQQQrycznkrGGGNNNrzna</span> <br />
   <p>Embed the following where you want the obfuscated email address to appear:</p>
   
   <pre id="obfuscated"></pre>
@@ -11,7 +11,6 @@
   <pre>
 <script>
 (function(){
-  $(window).load(function () {
     var emails = document.getElementsByClassName("email");
     for(var i = 0; i < emails.length; i++) {
       email = emails[i];
@@ -39,21 +38,23 @@
       var inputEmail = document.getElementById('inputEmail').value;
       var reversed = inputEmail.replace('@', 'AAATTT').replace(/\./g, 'DDDOOOTTT').split("").reverse().join("");
       var rot13 = reversed.replace(/[a-zA-Z]/g,function(a){return String.fromCharCode(((a=a.charCodeAt())<91?78:110)>a?a+13:a-13)});
-      document.getElementById('example').innerHTML = rot13;
       document.getElementById('obfuscated').innerHTML = htmlEncode('<span class="email">'+rot13+'</span>');
-      
-      var emails = document.getElementsByClassName("email");
-      for(var i = 0; i < emails.length; i++) {
-        email = emails[i];
-        email.style["unicode-bidi"] = "bidi-override";
-        email.style.direction = "rtl";
-        var rot13rot13 = email.innerHTML.replace(/[a-zA-Z]/g, function (a) {
-          return String.fromCharCode(((a = a.charCodeAt()) < 91 ? 78 : 110) > a ? a + 13 : a - 13);
-        });
-        rot13rot13 = rot13rot13.split("").reverse().join("").replace('AAATTT', '@').replace(/DDDOOOTTT/g, '.').split("").reverse().join("");
-        email.innerHTML = rot13rot13;
-      }
     };
+    
+    (function(){
+    var emails = document.getElementsByClassName("email");
+    for(var i = 0; i < emails.length; i++) {
+      email = emails[i];
+      email.style["unicode-bidi"] = "bidi-override";
+      email.style.direction = "rtl";
+      var rot13rot13 = email.innerHTML.replace(/[a-zA-Z]/g, function (a) {
+        return String.fromCharCode(((a = a.charCodeAt()) < 91 ? 78 : 110) > a ? a + 13 : a - 13);
+      });
+      rot13rot13 = rot13rot13.split("").reverse().join("").replace('AAATTT', '@').replace(/DDDOOOTTT/g, '.').split("").reverse().join("");
+      email.innerHTML = rot13rot13;
+    }
+  });
+})();
   </script>
 </body>
 </html>
