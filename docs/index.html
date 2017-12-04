@@ -20,12 +20,19 @@ $(window).load(function () {
 });
   </pre>
   <script>
+    var htmlEncode = function(value) {
+      var div = document.createElement('div');
+      var text = document.createTextNode(value);
+      div.appendChild(text);
+      return div.innerHTML;
+    };
+    
     var generate = function(){
       var inputEmail = document.getElementById('inputEmail').value;
       var reversed = inputEmail.replace('@', 'AAATTT').replace(/\./g, 'DDDOOOTTT').split("").reverse().join("");
       var rot13 = reversed.replace(/[a-zA-Z]/g,function(a){return String.fromCharCode(((a=a.charCodeAt())<91?78:110)>a?a+13:a-13)});
       document.getElementById('example').innerHTML = rot13;
-      document.getElementById('obfuscated').innerHTML = '<span class="email">'+rot13+'</span>';
+      document.getElementById('obfuscated').innerHTML = htmlEncode('<span class="email">'+rot13+'</span>');
       
       var emails = document.getElementsByClassName("email");
       for(var i = 0; i < emails.length; i++) {
@@ -38,7 +45,7 @@ $(window).load(function () {
         rot13rot13 = rot13rot13.split("").reverse().join("").replace('AAATTT', '@').replace(/DDDOOOTTT/g, '.').split("").reverse().join("");
         email.innerHTML = rot13rot13;
       }
-    }
+    };
   </script>
 </body>
 </html>
