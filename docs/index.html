@@ -2,24 +2,30 @@
 <body>
   Email: <input id="inputEmail" value="name@example.com"></input><button onclick="generate();">Generate</button><br />
   Example: <span class="email" id="example"></span><br />
-  Copy and paste: <pre id="obfuscated"></pre>
+  <p>Embed the following where you want the obfuscated email address to appear:</p>
   
-  and
+  <pre id="obfuscated"></pre>
+  
+  <p>and the following at the end of your document before the closing body tag:</p>
   
   <pre>
-$(window).load(function () {
-  var emails = document.getElementsByClassName("email");
-  for(var i = 0; i < emails.length; i++) {
-    email = emails[i];
-    email.style["unicode-bidi"] = "bidi-override";
-    email.style.direction = "rtl";
-    var rot13rot13 = email.innerHTML.replace(/[a-zA-Z]/g, function (a) {
-      return String.fromCharCode(((a = a.charCodeAt()) < 91 ? 78 : 110) > a ? a + 13 : a - 13);
-    });
-    rot13rot13 = rot13rot13.split("").reverse().join("").replace('AAATTT', '@').replace(/DDDOOOTTT/g, '.').split("").reverse().join("");
-    email.innerHTML = rot13rot13;
-  }
-});
+<script>
+(function(){
+  $(window).load(function () {
+    var emails = document.getElementsByClassName("email");
+    for(var i = 0; i < emails.length; i++) {
+      email = emails[i];
+      email.style["unicode-bidi"] = "bidi-override";
+      email.style.direction = "rtl";
+      var rot13rot13 = email.innerHTML.replace(/[a-zA-Z]/g, function (a) {
+        return String.fromCharCode(((a = a.charCodeAt()) < 91 ? 78 : 110) > a ? a + 13 : a - 13);
+      });
+      rot13rot13 = rot13rot13.split("").reverse().join("").replace('AAATTT', '@').replace(/DDDOOOTTT/g, '.').split("").reverse().join("");
+      email.innerHTML = rot13rot13;
+    }
+  });
+})();
+</script>
   </pre>
   <script>
     var htmlEncode = function(value) {
