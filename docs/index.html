@@ -1,18 +1,36 @@
 <html>
 <body>
-Email: <input id="example"></input>
-<br />
-Copy and paste:<br />
-<textarea>
-$(window).load(function () {
-  var email$ = $(".email");
-  email$.css("unicode-bidi", "bidi-override");
-  email$.css("direction", "rtl");
-  var email = email$.html().replace(/[a-zA-Z]/g, function (a) {
-    return String.fromCharCode(((a = a.charCodeAt()) < 91 ? 78 : 110) > a ? a + 13 : a - 13)
-  });
-  email = email.split("").reverse().join("").replace('AAATTT', '@').replace(/DDDOOOTTT/g, '.').split("").reverse().join("");
-  email$.html(email);
-</textarea>
+  Email: <input id="example"></input><br /><button onclick="generate();">Generate</button><br />
+  Example: <span class="email"><span><br />
+  Copy and paste: <input id="obfuscated"></input><br />
+  and
+  <textarea>
+  $(window).load(function () {
+    var email$ = $(".email");
+    email$.css("unicode-bidi", "bidi-override");
+    email$.css("direction", "rtl");
+    var email = email$.html().replace(/[a-zA-Z]/g, function (a) {
+      return String.fromCharCode(((a = a.charCodeAt()) < 91 ? 78 : 110) > a ? a + 13 : a - 13)
+    });
+    email = email.split("").reverse().join("").replace('AAATTT', '@').replace(/DDDOOOTTT/g, '.').split("").reverse().join("");
+    email$.html(email);
+  </textarea>
+  <script>
+    var generate = function(email){
+      var reversed = email.replace('@', 'AAATTT').replace(/\./g, 'DDDOOOTTT').split("").reverse().join("");
+      var rot13 = reversed.replace(/[a-zA-Z]/g,function(a){return String.fromCharCode(((a=a.charCodeAt())<91?78:110)>a?a+13:a-13)});
+      var document.getElementsById('obfuscated').innerHTML = rot13;
+      var document.getElementsById('obfuscated').value = rot13;
+      
+      var email$ = $(".email");
+      email$.css("unicode-bidi", "bidi-override");
+      email$.css("direction", "rtl");
+      var email = email$.html().replace(/[a-zA-Z]/g, function (a) {
+        return String.fromCharCode(((a = a.charCodeAt()) < 91 ? 78 : 110) > a ? a + 13 : a - 13)
+      });
+      email = email.split("").reverse().join("").replace('AAATTT', '@').replace(/DDDOOOTTT/g, '.').split("").reverse().join("");
+      email$.html(email);
+    }
+  </script>
 </body>
 </html>
